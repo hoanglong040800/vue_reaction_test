@@ -11,18 +11,33 @@ export default {
   data() {
     return {
       showBox: false,
+      timer: null,
+      reactionTime: 0,
     };
   },
 
   mounted() {
     setTimeout(() => {
       this.showBox = true;
+      this.startTimer();
     }, this.delay);
   },
 
   methods: {
     boxClicked() {
-      this.$emit("box-clicked");
+      this.stopTimer();
+      this.$emit("box-clicked", this.reactionTime);
+    },
+
+    startTimer() {
+      this.timer = setInterval(() => {
+        this.reactionTime += 10;
+        console.log(this.reactionTime)
+      }, 10);
+    },
+
+    stopTimer() {
+      clearInterval(this.timer);
     },
   },
 };

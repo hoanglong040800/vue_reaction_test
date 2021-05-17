@@ -5,6 +5,8 @@
 
       <button :disabled="isPlay" @click="start">Play</button>
 
+      <h3 v-if="!isPlay">Result: {{ reactionTime }}ms</h3>
+
       <Box v-if="isPlay" :delay="delay" @box-clicked="boxClicked" />
     </main>
   </div>
@@ -19,6 +21,7 @@ export default {
     return {
       isPlay: false,
       delay: null,
+      reactionTime: 0,
     };
   },
 
@@ -30,8 +33,9 @@ export default {
       this.isPlay = true;
     },
 
-    boxClicked() {
+    boxClicked(reactionTime) {
       this.isPlay = false;
+      this.reactionTime = reactionTime;
     },
   },
 };
