@@ -2,22 +2,34 @@
   <div class="box" v-if="showBox" @click="boxClicked">
     <h3>CLICK ME</h3>
   </div>
+
+  <div
+    class="box box-cancel"
+    :class="{ show: showBoxCancel == true }"
+    v-if="!showBox"
+    @click="boxCancel"
+  >
+    <h3>You click too soon.</h3>
+  </div>
 </template>
 
 <script>
 export default {
   props: ["delay"],
+  emits: ["box-clicked"],
 
   data() {
     return {
       showBox: false,
+      showBoxCancel: false,
       timer: null,
+      timeout: null,
       reactionTime: 0,
     };
   },
 
   mounted() {
-    setTimeout(() => {
+    this.timeout = setTimeout(() => {
       this.showBox = true;
       this.startTimer();
     }, this.delay);
@@ -25,19 +37,23 @@ export default {
 
   methods: {
     boxClicked() {
-      this.stopTimer();
+      clearInterval(this.timer);
       this.$emit("box-clicked", this.reactionTime);
     },
 
     startTimer() {
       this.timer = setInterval(() => {
         this.reactionTime += 10;
-        console.log(this.reactionTime)
       }, 10);
     },
 
-    stopTimer() {
-      clearInterval(this.timer);
+    boxCancel() {
+      this.showBoxCancel = true;
+      clearTimeout(this.timeout);
+      
+      setTimeout(() => {
+        this.$emit("box-clicked", this.reactionTime);
+      }, 2000);
     },
   },
 };
@@ -50,8 +66,18 @@ export default {
   background: #6add6a;
   border-radius: 10px;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   cursor: pointer;
+}
+
+.box-cancel {
+  background: lightcoral;
+  opacity: 0;
+}
+
+.show {
+  opacity: 100;
 }
 </style>

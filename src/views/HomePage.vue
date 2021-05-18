@@ -7,6 +7,8 @@
 
       <h3 v-if="!isPlay">Result: {{ reactionTime }}ms</h3>
 
+      <h3 v-if="!isPlay">Best result: {{ bestTime }}ms</h3>
+
       <Box v-if="isPlay" :delay="delay" @box-clicked="boxClicked" />
     </main>
   </div>
@@ -17,15 +19,16 @@ import Box from "../components/Box";
 import Result from "../components/Result";
 
 export default {
+  components: { Box },
+
   data() {
     return {
       isPlay: false,
       delay: null,
       reactionTime: 0,
+      bestTime: 0,
     };
   },
-
-  components: { Box },
 
   methods: {
     start() {
@@ -36,6 +39,10 @@ export default {
     boxClicked(reactionTime) {
       this.isPlay = false;
       this.reactionTime = reactionTime;
+
+      if (this.bestTime == 0 || reactionTime < this.bestTime) {
+        this.bestTime = reactionTime;
+      }
     },
   },
 };
