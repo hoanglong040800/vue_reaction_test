@@ -1,17 +1,7 @@
 # reaction-test
+Simple reaction test built by Vue 3
 
-## Project setup
-```
-npm install
-```
+## Demo
+Demo website here: [vue-reaction-test](https://vue-reaction-test.netlify.app/)
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
 
