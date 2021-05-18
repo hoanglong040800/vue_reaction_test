@@ -1,5 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=KoHo&display=swap');
+
 body {
-  font-family: Helvetica, Arial, sans-serif;
+  font-family: 'KoHo', Helvetica, Arial, sans-serif;
+}
+
+html,
+body,
+#app {
+  width: 100%;
+  height: 100%;
+  background-color: #f7f7f7;
 }
 
 /* reset css */
@@ -88,6 +98,12 @@ video {
   padding: 0;
   border: 0;
 }
+
+button,
+input[type='submit'] {
+  cursor: pointer;
+}
+
 /* HTML5 display-role reset for older browsers */
 article,
 aside,

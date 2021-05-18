@@ -3,11 +3,13 @@
     <main>
       <h1>Reaction Test</h1>
 
-      <button :disabled="isPlay" @click="start">Play</button>
+      <button v-if="!isPlay" @click="start">Play</button>
 
-      <h3 v-if="!isPlay">Result: {{ reactionTime }}ms</h3>
-
-      <h3 v-if="!isPlay">Best result: {{ bestTime }}ms</h3>
+      <Result
+        v-if="!isPlay"
+        :reactionTime="reactionTime"
+        :bestTime="bestTime"
+      />
 
       <Box v-if="isPlay" :delay="delay" @box-clicked="boxClicked" />
     </main>
@@ -19,7 +21,7 @@ import Box from "../components/Box";
 import Result from "../components/Result";
 
 export default {
-  components: { Box },
+  components: { Box, Result },
 
   data() {
     return {
@@ -55,6 +57,11 @@ export default {
   padding: 50px 0;
 }
 
+h1 {
+  font-size: 3em;
+  margin: 0 0 30px 0;
+}
+
 main {
   display: flex;
   flex-direction: column;
@@ -64,9 +71,10 @@ main {
 button {
   width: 100px;
   height: 40px;
-  margin: 20px 0;
+  margin: 0 0 20px 0;
   font-size: 1.2em;
-  background: #c4c4c4;
-  cursor: pointer;
+  background: #fca910;
+  border: 1px solid #b87f15;
+  border-radius: 5px;
 }
 </style>
